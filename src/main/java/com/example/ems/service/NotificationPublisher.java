@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,11 +15,8 @@ public class NotificationPublisher {
 
     private static final Logger log = LoggerFactory.getLogger(NotificationPublisher.class);
 
-    private final RabbitTemplate rabbitTemplate;
-
-    public NotificationPublisher(RabbitTemplate rabbitTemplate) {
-        this.rabbitTemplate = rabbitTemplate;
-    }
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     public void publishEmployeeCreated(NotificationEmployeeCreated msg) {
         try {
