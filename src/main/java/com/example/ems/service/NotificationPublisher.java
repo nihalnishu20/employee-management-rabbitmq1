@@ -15,8 +15,12 @@ public class NotificationPublisher {
 
     private static final Logger log = LoggerFactory.getLogger(NotificationPublisher.class);
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private final RabbitTemplate rabbitTemplate;
+
+    public NotificationPublisher(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
+
 
     public void publishEmployeeCreated(NotificationEmployeeCreated msg) {
         try {
