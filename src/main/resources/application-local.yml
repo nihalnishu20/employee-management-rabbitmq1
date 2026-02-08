@@ -1,0 +1,14 @@
+# Use this profile when running without Docker (local DB + local RabbitMQ)
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ems
+    username: ems
+    password: ems
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest

@@ -1,0 +1,68 @@
+{
+  "info": {
+    "name": "EMS - RabbitMQ",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Department (ADMIN)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "auth": {"type": "basic", "basic": [{"key":"username","value":"admin"},{"key":"password","value":"admin123"}]},
+        "url": {"raw": "http://localhost:8080/api/departments", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","departments"]},
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"IT\",\n  \"location\": \"Bangalore\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Create Employee (ADMIN)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "auth": {"type": "basic", "basic": [{"key":"username","value":"admin"},{"key":"password","value":"admin123"}]},
+        "url": {"raw": "http://localhost:8080/api/employees", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","employees"]},
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"User One\",\n  \"email\": \"user\",\n  \"departmentId\": 1,\n  \"salary\": 120000,\n  \"joiningDate\": \"2025-01-01\"\n}"
+        }
+      }
+    },
+    {
+      "name": "List Employees (ADMIN)",
+      "request": {
+        "method": "GET",
+        "auth": {"type": "basic", "basic": [{"key":"username","value":"admin"},{"key":"password","value":"admin123"}]},
+        "url": {"raw": "http://localhost:8080/api/employees?page=0&sort=name", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","employees"], "query": [{"key":"page","value":"0"},{"key":"sort","value":"name"}]}
+      }
+    },
+    {
+      "name": "Submit Leave (USER)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "auth": {"type": "basic", "basic": [{"key":"username","value":"user"},{"key":"password","value":"user123"}]},
+        "url": {"raw": "http://localhost:8080/api/leaves", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","leaves"]},
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"employeeId\": 1,\n  \"startDate\": \"2026-03-01\",\n  \"endDate\": \"2026-03-03\",\n  \"reason\": \"Vacation\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Update Leave Status (ADMIN)",
+      "request": {
+        "method": "PUT",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "auth": {"type": "basic", "basic": [{"key":"username","value":"admin"},{"key":"password","value":"admin123"}]},
+        "url": {"raw": "http://localhost:8080/api/leaves/1/status", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","leaves","1","status"]},
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"APPROVED\"\n}"
+        }
+      }
+    }
+  ]
+}
