@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -39,9 +41,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiError> handleAny(Exception ex, HttpServletRequest req) {
-        log.error("Unhandled error", ex);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiError(500, "INTERNAL_SERVER_ERROR", "Unexpected error", req.getRequestURI()));
+    public ResponseEntity<?> handle(Exception ex, HttpServletRequest req) {
+        ex.printStackTrace();   // 🔥 THIS IS KEY
+        return ResponseEntity.status(500).body(Map.of(
+                "timestamp", LocalDateTime.now(),
+                "status", 500,
+                "error", "INTERNAL_SERVER_ERROR",
+                "message", ex.getMessage(),
+                "path", req.getRequestURI()
+        ));
     }
 }

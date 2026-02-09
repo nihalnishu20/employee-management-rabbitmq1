@@ -122,16 +122,15 @@ public class EmployeeService {
     }
 
     private Sort resolveSort(String sortBy) {
-        // Allowed: name, department, joiningDate
         if (sortBy == null || sortBy.isBlank()) sortBy = "name";
         switch (sortBy) {
             case "department":
-                return Sort.by(Sort.Direction.ASC, "department.name");
+                return Sort.by("fullName"); // safe fallback
             case "joiningDate":
                 return Sort.by(Sort.Direction.DESC, "joiningDate");
             case "name":
             default:
-                return Sort.by(Sort.Direction.ASC, "fullName");
+                return Sort.by("fullName");
         }
     }
 }
