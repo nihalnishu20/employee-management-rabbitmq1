@@ -32,12 +32,17 @@ public class EmployeeService {
         this.notificationPublisher = notificationPublisher;
     }
 
+    @Transactional(readOnly = true)
     public Page<EmployeeResponse> list(Optional<Long> departmentId, int page, String sortBy) {
+        if (page < 0) page = 0;
+
         Sort sort = resolveSort(sortBy);
         Pageable pageable = PageRequest.of(page, 10, sort);
+
         Page<Employee> result = departmentId
                 .map(id -> employeeRepository.findByDepartment_Id(id, pageable))
                 .orElseGet(() -> employeeRepository.findAll(pageable));
+
         return result.map(this::toResponse);
     }
 
