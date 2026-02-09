@@ -26,7 +26,7 @@ public class EmployeeController {
     @PreAuthorize("hasRole('ADMIN')")
     public Page<EmployeeResponse> list(@RequestParam Optional<Long> departmentId,
                                       @RequestParam(defaultValue = "0") int page,
-                                      @RequestParam(defaultValue = "fullname") String sort) {
+                                      @RequestParam(defaultValue = "name") String sort) {
         return employeeService.list(departmentId, page, sort);
     }
 
